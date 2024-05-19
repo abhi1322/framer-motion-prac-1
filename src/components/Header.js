@@ -1,8 +1,21 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Header = () => {
   return (
-    <div className="header">
+    <motion.div
+      className="header"
+      initial={{ opacity: 0.5, y: -100 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        transition: {
+          delay: .5,
+          duration: 1,
+          ease: "easeInOut",
+        },
+      }}
+    >
       <div className="header-inner">
         <div className="logo">Ollie</div>
         <nav className="nav">
@@ -30,7 +43,7 @@ const Header = () => {
           <span></span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

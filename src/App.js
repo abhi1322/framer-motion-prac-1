@@ -5,6 +5,7 @@ import "./sass/main.scss";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Loader from "./components/Loader";
+import { AnimatePresence, motion, AnimateSharedLayout, LayoutGroup } from "framer-motion";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -16,21 +17,25 @@ function App() {
   }, [loading]);
 
   return (
-    <>
-      {loading ? (
-        <Loader setLoading={setLoading} />
-      ) : (
-        <>
-          <Header />
-          <Banner />
-          {!loading && (
-            <div className="transition-image final">
-              <img src={process.env.PUBLIC_URL + `/images/image-2.jpg`} />
-            </div>
-          )}
-        </>
-      )}
-    </>
+    <LayoutGroup  type="crossfade">
+      <AnimatePresence>
+        {loading ? (
+          <motion.div key="loader">
+            <Loader setLoading={setLoading} />
+          </motion.div>
+        ) : (
+          <>
+            <Header />
+            <Banner />
+            {!loading && (
+              <div className="transition-image final">
+                <motion.img src={process.env.PUBLIC_URL + `/images/image-2.jpg`} layoutId="main-image-1" />
+              </div>
+            )}
+          </>
+        )}
+      </AnimatePresence>
+    </LayoutGroup>
   );
 }
 
